@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Calendar, X, ThumbsUp, ThumbsDown, Image, FileText, IndianRupee, CheckCircle2 } from "lucide-react";
 import { POI_CONTRACT_ADDRESS, POI_ABI } from "@/abi";
 import { createPublicClient, custom, createWalletClient } from 'viem';
-import { seiTestnet } from 'viem/chains';
+import { qieTestnet } from '@/lib/qie-chain';
 
 // Mock data for CSR activities
 const mockCsrActivities = [
@@ -247,7 +247,7 @@ export default function VerifyPOIPage() {
     }
     try {
       const client = createPublicClient({
-        chain: seiTestnet,
+        chain: qieTestnet,
         transport: custom((window as Window & { ethereum?: unknown }).ethereum as EthereumProvider),
       });
       const result = await client.readContract({
@@ -268,7 +268,7 @@ export default function VerifyPOIPage() {
     const fetchProjects = async () => {
       try {
         const client = createPublicClient({
-          chain: seiTestnet,
+          chain: qieTestnet,
           transport: custom((window as Window & { ethereum?: unknown }).ethereum as EthereumProvider),
         });
         const totalProjects = await client.readContract({
@@ -324,7 +324,7 @@ export default function VerifyPOIPage() {
           }
           const ethWin = window as Window & { ethereum?: unknown };
           const client = createWalletClient({
-            chain: seiTestnet,
+            chain: qieTestnet,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             transport: custom(ethWin.ethereum as any),
           });
@@ -376,7 +376,7 @@ export default function VerifyPOIPage() {
                   <h3 className="text-2xl font-semibold text-gray-900">Your vote has been recorded on-chain</h3>
                   {voteTxHash && (
                     <div className="mt-2 text-green-700 text-xs break-all">
-                      Tx: <a href={`https://seitrace.com/tx/${voteTxHash}?chain=atlantic-2`} target="_blank" rel="noopener noreferrer">{voteTxHash}</a>
+                      Tx: <a href={`https://testnet.qie.digital/tx/${voteTxHash}`} target="_blank" rel="noopener noreferrer">{voteTxHash}</a>
                     </div>
                   )}
                   <button

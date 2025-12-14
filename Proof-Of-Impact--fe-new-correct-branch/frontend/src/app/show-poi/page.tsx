@@ -8,7 +8,7 @@ import { CheckCircle2 } from "lucide-react";
 import { uploadFileToPinata } from "@/lib/pinata";
 import { POI_CONTRACT_ADDRESS, POI_ABI } from "@/abi";
 import { createWalletClient, custom } from 'viem';
-import { seiTestnet } from 'viem/chains';
+import { qieTestnet } from '@/lib/qie-chain';
 
 export default function ShowPOIPage() {
   const router = useRouter();
@@ -74,7 +74,7 @@ export default function ShowPOIPage() {
     try {
       const ethWin = window as Window & { ethereum?: unknown };
       const client = createWalletClient({
-        chain: seiTestnet,
+        chain: qieTestnet,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transport: custom(ethWin.ethereum as any),
       });
@@ -382,7 +382,7 @@ export default function ShowPOIPage() {
               <CheckCircle2 className="w-16 h-16 text-green-500 mb-4" />
               <h2 className="text-xl font-bold mb-2">Transaction Submitted</h2>
               {txHash && (
-                <div className="text-xs text-green-700 mb-2">Tx: <a href={`https://seitrace.com/tx/${txHash}?chain=atlantic-2`} target="_blank" rel="noopener noreferrer">{txHash}</a></div>
+                <div className="text-xs text-green-700 mb-2">Tx: <a href={`https://testnet.qie.digital/tx/${txHash}`} target="_blank" rel="noopener noreferrer">{txHash}</a></div>
               )}
               <div className="text-gray-700 mb-4">Your CSR activity has been attested on-chain!</div>
               <button onClick={() => setModalOpen(false)} className="mt-2 px-4 py-2 bg-blue-600 text-white rounded">Close</button>

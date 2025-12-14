@@ -65,9 +65,9 @@ export default function Navbar() {
             method: "wallet_switchEthereumChain",
             params: [{ chainId: qieChainParams.chainId }],
           });
-        } catch (switchError: any) {
+        } catch (switchError: unknown) {
           // If QIE Testnet is not added, add it
-          if (switchError?.code === 4902) {
+          if (typeof switchError === 'object' && switchError && 'code' in switchError && (switchError as { code: number }).code === 4902) {
             await ethWin.ethereum.request({
               method: "wallet_addEthereumChain",
               params: [qieChainParams],
